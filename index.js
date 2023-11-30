@@ -27,8 +27,16 @@ async function run() {
     // await client.connect();
     // Send a ping to confirm a successful connection
 
+     const userCollection = client.db("touristGuideDB").collection("users");
     const serviceCollection =client.db('touristGuideDB').collection('service');
     const guideCollection =client.db('touristGuideDB').collection('guide');
+
+
+     app.get('/users', async (req, res) => {
+      const user =req.body;
+      const result = await userCollection.insertOne(user);
+      res.send(result);
+    });
 
     app.get('/service',async(req,res)=>{
       const cursor = serviceCollection.find();
